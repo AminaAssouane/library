@@ -16,6 +16,7 @@ function addBookToLibrary(title, author, pages, read) {
 addBookToLibrary("Harry Potter", "JK Rowling", 433, true);
 addBookToLibrary("Game of Thrones", "George RR Martin", 788, false);
 
+/* Displaying the library : */
 function displayBooks() {
   const container = document.getElementById("book-container");
   container.innerHTML = "";
@@ -36,10 +37,17 @@ function displayBooks() {
 let displayLibrary = document.getElementById("library");
 displayLibrary.addEventListener("click", displayBooks);
 
-function addNewBook() {
-  let bookForm = document.querySelector("form");
-  bookForm.style.display = "block";
-}
+/* Adding a new book */
+
+let bookForm = document.querySelector("form");
 
 let newBook = document.getElementById("new-book");
-newBook.addEventListener("click", addNewBook);
+newBook.addEventListener("click", () => {
+  bookForm.style.display = "block";
+});
+
+/* Submit the form */
+let submitButton = document.getElementById("submit");
+submitButton.addEventListener("click", () => {
+  bookForm.style.display = "none";
+});
