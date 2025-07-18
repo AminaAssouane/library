@@ -17,7 +17,29 @@ addBookToLibrary("Harry Potter", "JK Rowling", 433, true);
 addBookToLibrary("Game of Thrones", "George RR Martin", 788, false);
 
 function displayBooks() {
-  for (let book of myLibrary) {
-    console.log(`${book.title}`);
-  }
+  const container = document.getElementById("book-container");
+  container.innerHTML = "";
+  myLibrary.forEach((book, index) => {
+    let bookDiv = document.createElement("div");
+    bookDiv.innerHTML = `
+        <div>Book ${index + 1}:</div>
+        <div>Title : ${book.title}</div>
+        <div>Author : ${book.author}</div>
+        <div>Pages : ${book.pages}</div>
+        <div>Read : ${book.read ? "Yes" : "No"} </div>
+        <div>ID : ${book.id}</div>
+        </br>`;
+    container.appendChild(bookDiv);
+  });
 }
+
+let displayLibrary = document.getElementById("library");
+displayLibrary.addEventListener("click", displayBooks);
+
+function addNewBook() {
+  let bookForm = document.querySelector("form");
+  bookForm.style.display = "block";
+}
+
+let newBook = document.getElementById("new-book");
+newBook.addEventListener("click", addNewBook);
