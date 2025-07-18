@@ -40,14 +40,26 @@ displayLibrary.addEventListener("click", displayBooks);
 /* Adding a new book */
 
 let bookForm = document.querySelector("form");
-
 let newBook = document.getElementById("new-book");
+
 newBook.addEventListener("click", () => {
   bookForm.style.display = "block";
 });
 
 /* Submit the form */
 let submitButton = document.getElementById("submit");
-submitButton.addEventListener("click", () => {
+
+submitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+
+  addBookToLibrary(
+    document.getElementById("title").value,
+    document.getElementById("author").value,
+    document.getElementById("pages").value,
+    document.getElementById("read").checked
+  );
+
+  bookForm.reset();
   bookForm.style.display = "none";
+  displayBooks();
 });
