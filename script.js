@@ -8,6 +8,10 @@ function Book(title, author, pages, read) {
   this.id = crypto.randomUUID();
 }
 
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
 function addBookToLibrary(title, author, pages, read) {
   let newBook = new Book(title, author, pages, read);
   myLibrary.push(newBook);
@@ -92,9 +96,9 @@ function deleteBookFromLibrary(id) {
 
 /* Toggle book's read status */
 function toggleRead(id) {
-  const index = myLibrary.findIndex((book) => book.id === id);
-  if (index !== -1) {
-    myLibrary[index].read = !myLibrary[index].read;
+  const book = myLibrary.find((book) => book.id === id);
+  if (book) {
+    book.toggleRead(); // call the prototype method
     displayBooks();
   }
 }
