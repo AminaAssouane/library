@@ -28,9 +28,26 @@ function displayBooks() {
         <div>Author : ${book.author}</div>
         <div>Pages : ${book.pages}</div>
         <div>Read : ${book.read ? "Yes" : "No"} </div>
-        <div>ID : ${book.id}</div>
-        </br>`;
+        </br>
+        <button class="toggle-btn" id="${book.id}">Read</button>
+        <button class="delete-btn" id="${book.id}">Delete</button>
+        </br></br></br>`;
     container.appendChild(bookDiv);
+  });
+  // Attach delete event listeners AFTER books are rendered
+  document.querySelectorAll(".delete-btn").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const idToToggle = e.target.id;
+      deleteBookFromLibrary(idToToggle);
+    });
+  });
+
+  // Attach toggle button event listener for read status
+  document.querySelectorAll(".toggle-btn").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const idToDelete = e.target.id;
+      toggleRead(idToDelete);
+    });
   });
 }
 
@@ -63,3 +80,21 @@ submitButton.addEventListener("click", (event) => {
   bookForm.style.display = "none";
   displayBooks();
 });
+
+/* Delete book from library */
+function deleteBookFromLibrary(id) {
+  const index = myLibrary.findIndex((book) => book.id === id);
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+    displayBooks();
+  }
+}
+
+/* Toggle book's read status */
+function toggleRead(id) {
+  const index = myLibrary.findIndex((book) => book.id === id);
+  if (index !== -1) {
+    myLibrary[index].read = !myLibrary[index].read;
+    displayBooks();
+  }
+}
