@@ -1,3 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 130px auto;
+}
+
+@font-face {
+  font-family: "Freshman";
+  src: url("./fonts/Freshman.ttf");
+}
+
+header {
+  width: 100vw;
+  background-color: maroon;
+  color: rgb(193, 192, 192);
+  text-align: center;
+  padding: 20px 10px 10px 10px;
+}
+
+#content {
+  text-align: center;
+  background-color: rgb(193, 192, 192);
+  height: 100vh;
+}
+
+h1 {
+  font-family: "Freshman";
+  font-weight: normal;
+  font-size: 100px;
+}
+
 form {
   display: none;
 }
