@@ -73,6 +73,11 @@ let submitButton = document.getElementById("submit");
 submitButton.addEventListener("click", (event) => {
   event.preventDefault();
 
+  if (!bookForm.checkValidity()) {
+    bookForm.reportValidity(); // show the built-in browser messages
+    return; // stop further execution if invalid
+  }
+
   addBookToLibrary(
     document.getElementById("title").value,
     document.getElementById("author").value,
