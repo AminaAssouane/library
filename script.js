@@ -7,9 +7,9 @@ class Book {
     this.id = crypto.randomUUID();
   }
 
-  toggleRead = function () {
+  toggleRead() {
     this.read = !this.read;
-  };
+  }
 }
 
 class Library {
@@ -38,16 +38,16 @@ class Library {
     // Attach delete event listeners AFTER books are rendered
     document.querySelectorAll(".delete-btn").forEach((button) => {
       button.addEventListener("click", (e) => {
-        const idToToggle = e.target.id;
-        deleteBookFromLibrary(idToToggle);
+        const bookId = e.target.id;
+        this.deleteBookFromLibrary(bookId);
       });
     });
 
     // Attach toggle button event listener for read status
     document.querySelectorAll(".toggle-btn").forEach((button) => {
       button.addEventListener("click", (e) => {
-        const idToDelete = e.target.id;
-        toggleRead(idToDelete);
+        const bookId = e.target.id;
+        this.toggleRead(bookId);
       });
     });
   }
@@ -63,7 +63,7 @@ class Library {
     const index = this.books.findIndex((book) => book.id === id);
     if (index !== -1) {
       this.books.splice(index, 1);
-      displayBooks();
+      this.displayBooks();
     }
   }
 
@@ -72,10 +72,17 @@ class Library {
     const book = this.books.find((book) => book.id === id);
     if (book) {
       book.toggleRead(); // call the prototype method
-      displayBooks();
+      this.displayBooks();
     }
   }
 }
+
+/* We create a Library instance */
+
+const library = new Library();
+
+library.addBookToLibrary("Harry Potter", "JK Rowling", 433, true);
+library.addBookToLibrary("Game of Thrones", "George RR Martin", 788, false);
 
 let bookForm = document.querySelector("form");
 let newBook = document.getElementById("new-book");
@@ -95,7 +102,7 @@ submitButton.addEventListener("click", (event) => {
     return; // stop further execution if invalid
   }
 
-  addBookToLibrary(
+  library.addBookToLibrary(
     document.getElementById("title").value,
     document.getElementById("author").value,
     document.getElementById("pages").value,
@@ -104,13 +111,8 @@ submitButton.addEventListener("click", (event) => {
 
   bookForm.reset();
   bookForm.style.display = "none";
-  displayBooks();
+  library.displayBooks();
 });
 
-const library = new Library();
-
-library.addBookToLibrary("Harry Potter", "JK Rowling", 433, true);
-library.addBookToLibrary("Game of Thrones", "George RR Martin", 788, false);
-
 let displayLibrary = document.getElementById("library");
-displayLibrary.addEventListener("click", displayBooks);
+displayLibrary.addEventListener("click", () => library.displayBooks());
